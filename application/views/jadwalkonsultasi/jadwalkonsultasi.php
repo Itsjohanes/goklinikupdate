@@ -15,7 +15,7 @@
 
 <div class="row">
 
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title"><?php echo $jumlahkunjungan; ?></h5>
@@ -23,11 +23,19 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title"><?php echo $jumlahkunjunganberhasil; ?></h5>
                 <p class="card-text">Konsultasi Berhasil</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><?php echo $jumlahselesai; ?></h5>
+                <p class="card-text">Konsultasi Selesai</p>
             </div>
         </div>
     </div>
@@ -58,6 +66,7 @@
                 <td><?= $j['nama_dokter']; ?></td>
                 <td><?= $j['no_hp']; ?></td>
 
+
                 <td>
                     <?php
                     if ($j['status'] == 0) {
@@ -65,6 +74,7 @@
                         echo '<a href="' . base_url('JadwalKonsultasi/selesai/') . $j['id_konsultasi'] . '" class="badge badge-success">Selesai</a>';
                         echo '<a href="' . base_url('JadwalKonsultasi/deleteKonsultasi/') . $j['id_konsultasi'] . '" class="badge badge-danger">Batal</a>';
                     } else {
+                        echo '<a href="' . base_url('JadwalKonsultasi/pindahkan/') . $j['id_konsultasi'] . '" class="badge badge-success">Pindah ke tabel Selesai</a>';
                         echo '<a href="' . base_url('JadwalKonsultasi/kembali/') . $j['id_konsultasi'] . '" class="badge badge-danger">kembali</a>';
                     }
                     ?>

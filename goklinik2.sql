@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Nov 17, 2022 at 11:01 PM
--- Server version: 10.3.36-MariaDB-cll-lve
--- PHP Version: 7.4.30
+-- Host: 127.0.0.1
+-- Generation Time: Nov 26, 2022 at 11:53 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `goklinik_goklinik`
+-- Database: `goklinik2`
 --
 
 -- --------------------------------------------------------
@@ -103,18 +102,45 @@ CREATE TABLE `tb_konsultasi` (
   `id_konsultasi` int(11) NOT NULL,
   `id_jadwal` int(11) NOT NULL,
   `status` int(1) NOT NULL,
-  `id_pasien` int(11) NOT NULL
+  `id_pasien` int(11) NOT NULL,
+  `antrian` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_konsultasi`
 --
 
-INSERT INTO `tb_konsultasi` (`id_konsultasi`, `id_jadwal`, `status`, `id_pasien`) VALUES
-(3, 2, 1, 1),
-(4, 2, 1, 2),
-(5, 7, 0, 3),
-(7, 2, 0, 3);
+INSERT INTO `tb_konsultasi` (`id_konsultasi`, `id_jadwal`, `status`, `id_pasien`, `antrian`) VALUES
+(16, 2, 0, 2, 4),
+(17, 2, 0, 2, 5),
+(18, 4, 0, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_konsultasiselesai`
+--
+
+CREATE TABLE `tb_konsultasiselesai` (
+  `id_selesai` int(11) NOT NULL,
+  `id_pasien` int(11) NOT NULL,
+  `nama_pasien` varchar(255) NOT NULL,
+  `jadwal` varchar(255) NOT NULL,
+  `jam` varchar(255) NOT NULL,
+  `nama_dokter` varchar(255) NOT NULL,
+  `no_hp` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_konsultasiselesai`
+--
+
+INSERT INTO `tb_konsultasiselesai` (`id_selesai`, `id_pasien`, `nama_pasien`, `jadwal`, `jam`, `nama_dokter`, `no_hp`) VALUES
+(1, 1, 'Jenifer Lopez', 'Senin, 22 Agustus 2022', '12:00-11:00', 'dr.Asep,PHD', '0811212121'),
+(2, 3, 'Lesti Kejora', 'Senin, 22 Agustus 2022', '12:00-11:00', 'dr.Asep,PHD', '0872323232'),
+(3, 2, 'Johannes Alexander Putra', 'Senin, 22 Agustus 2022', '12:00-11:00', 'dr.Asep,PHD', '081934172542'),
+(4, 2, 'Johannes Alexander Putra', 'Senin, 22 Agustus 2022', '12:00-11:00', 'dr.Asep,PHD', '081934172542'),
+(5, 2, 'Johannes Alexander Putra', 'Senin, 22 Agustus 2022', '12:00-11:00', 'dr.Asep,PHD', '081934172542');
 
 -- --------------------------------------------------------
 
@@ -222,6 +248,12 @@ ALTER TABLE `tb_konsultasi`
   ADD KEY `id_pasien` (`id_pasien`);
 
 --
+-- Indexes for table `tb_konsultasiselesai`
+--
+ALTER TABLE `tb_konsultasiselesai`
+  ADD PRIMARY KEY (`id_selesai`);
+
+--
 -- Indexes for table `tb_obat`
 --
 ALTER TABLE `tb_obat`
@@ -260,7 +292,13 @@ ALTER TABLE `tb_jadwal`
 -- AUTO_INCREMENT for table `tb_konsultasi`
 --
 ALTER TABLE `tb_konsultasi`
-  MODIFY `id_konsultasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_konsultasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `tb_konsultasiselesai`
+--
+ALTER TABLE `tb_konsultasiselesai`
+  MODIFY `id_selesai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_obat`

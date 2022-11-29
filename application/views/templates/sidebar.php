@@ -45,8 +45,50 @@
         echo "<a class='nav-link pb-0' href='JadwalKonsultasi'>";
     }
     ?>
+
     <i class="fas fa-calendar"></i>
     <span>Jadwal Konsultasi</span></a>
+    </li> <span></span></a>
+    </li>
+
+    <?php
+    if ($title == 'Konsultasi Selesai') {
+        echo "<li class='nav-item active'>";
+    } else {
+        echo "<li class='nav-item'>";
+    }
+    ?>
+    <?php
+    if ($kembali == 'kembali') {
+        echo "<a class='nav-link pb-0' href='../../KonsultasiSelesai'>";
+    } else {
+        echo "<a class='nav-link pb-0' href='KonsultasiSelesai'>";
+    }
+    ?>
+
+    <i class="fas fa-check"></i> <span>Konsultasi Selesai</span></a>
+    </li> <span></span></a>
+    </li>
+
+
+
+    <?php
+    if ($title == 'Pasien') {
+        echo "<li class='nav-item active'>";
+    } else {
+        echo "<li class='nav-item'>";
+    }
+    ?>
+    <?php
+    if ($kembali == 'kembali') {
+        echo "<a class='nav-link pb-0' href='../../Pasien'>";
+    } else {
+        echo "<a class='nav-link pb-0' href='Pasien'>";
+    }
+    ?>
+
+    <i class="fas fa-user-injured"></i>
+    <span>Pasien</span></a>
     </li> <span></span></a>
     </li>
 
