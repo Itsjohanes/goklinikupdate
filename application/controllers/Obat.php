@@ -104,7 +104,7 @@ class Obat extends CI_Controller
     public function editObat2()
     {
 
-         $upload_image = $_FILES['image']['name'];
+        $upload_image = $_FILES['image']['name'];
         if ($upload_image) {
 
             $config['upload_path']          = './upload/obat';
@@ -114,7 +114,7 @@ class Obat extends CI_Controller
             $config['max_height']           = 76800;
 
             $this->load->library('upload', $config);
-            if ($this->upload->do_upload('image')) {
+            if ($this->upload->do_upload('image') && $upload_image != null) {
 
                 $this->form_validation->set_rules('nama', 'Nama', 'required|trim'); //Add data
                 $this->form_validation->set_rules('stok', 'Stok', 'required|trim'); //Add data
@@ -143,8 +143,30 @@ class Obat extends CI_Controller
                 redirect('Obat');
             }
         } else {
-            $this->session->set_flashdata('category_error', 'Data Gagal Diubah');
-            redirect('PesananObat');
+
+            $this->form_validation->set_rules('nama', 'Nama', 'required|trim'); //Add data
+            $this->form_validation->set_rules('stok', 'Stok', 'required|trim'); //Add data
+            $this->form_validation->set_rules('harga', 'Harga', 'required|trim'); //Add data
+            $this->form_validation->set_rules('keterangan', 'Keterangan', 'required|trim'); //Add data
+            $data = [
+                'nama_obat' => htmlspecialchars($this->input->post('nama', true)),
+                'stok_obat' => htmlspecialchars($this->input->post('stok', true)),
+                'harga' => htmlspecialchars($this->input->post('harga', true)),
+                'keterangan' => htmlspecialchars($this->input->post('keterangan', true)),
+                'gambar_obat' => $this->input->post('old_image')
+
+            ];
+            if ($this->form_validation->run() == false) {
+                $this->session->set_flashdata('category_error', 'Data Gagal Diubah');
+                redirect('Obat');
+            } else {
+                $this->db->where('id_obat', $this->input->post('id_obat'));
+                $this->db->update('tb_obat', $data);
+                $this->session->set_flashdata('category_success', 'Data Berhasil Diubah');
+                redirect('Obat');
+                $this->session->set_flashdata('category_success', 'Data Berhasil Diubah');
+            }
+            redirect('Obat');
         }
     }
 }

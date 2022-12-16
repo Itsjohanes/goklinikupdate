@@ -104,7 +104,9 @@ class Dokter extends CI_Controller
             $config['max_height']           = 76800;
 
             $this->load->library('upload', $config);
-            if ($this->upload->do_upload('image')) {
+            //Validasi jika tidak ada gambar
+
+            if ($this->upload->do_upload('image') && $upload_image != null) {
 
 
                 $data = [
@@ -124,7 +126,25 @@ class Dokter extends CI_Controller
                 redirect('Dokter');
             }
         } else {
-            $this->session->set_flashdata('category_error', 'Data Gagal Diubah');
+            // $this->session->set_flashdata('category_error', 'Data Gagal Diubah');
+            $this->form_validation->set_rules('nama', 'Nama', 'required|trim'); //Add data
+            $this->form_validation->set_rules('spesialis', 'Spesialis', 'required|trim'); //Add data
+            $this->form_validation->set_rules('keterangan', 'Keterangan', 'required|trim'); //Add data
+
+            $data = [
+                'nama_dokter' => htmlspecialchars($this->input->post('nama', true)),
+                'spesialis' => htmlspecialchars($this->input->post('spesialis', true)),
+                'keterangan' => htmlspecialchars($this->input->post('keterangan', true)),
+            ];
+            if ($this->form_validation->run() == false) {
+                $this->session->set_flashdata('category_error', 'Data Gagal Diubah');
+                redirect('Dokter');
+            } else {
+                $this->db->where('id_dokter', $this->input->post('id_dokter'));
+                $this->db->update('tb_dokter', $data);
+                $this->session->set_flashdata('category_success', 'Data Berhasil Diubah');
+                redirect('Dokter');
+            }
             redirect('Dokter');
         }
     }
