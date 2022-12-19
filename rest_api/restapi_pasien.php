@@ -115,8 +115,23 @@ function update_pasien()
     if (!empty($_GET["id"])) {
         $id = $_GET["id"];
     }
+    if (!empty($_GET['usernamelama'])) {
+        $usernamelama = $_GET['usernamelama'];
+    }
     $check = array('username' => '', 'password' => '', 'nama' => '', 'tgl_lahir' => '', 'jenkel' => '', 'no_hp' => '', 'alamat' => '');
     $check_match = count(array_intersect_key($_POST, $check));
+    //cek apakah si user sudah ada atau belum
+    $cekuser = mysqli_query($connect, "SELECT * FROM tb_pasien WHERE username = '$_POST[username]'");
+
+    if (mysqli_num_rows($cekuser) > 0 && $usernamelama != $_POST['username']) {
+        $response = array(
+            'status' => 0,
+            'message' => 'Username Sudah Ada'
+        );
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
+    }
     if ($check_match == count($check)) {
 
         $result = mysqli_query($connect, "UPDATE tb_pasien SET   
@@ -150,6 +165,8 @@ function update_pasien()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+
+
 
 //delete Pasien
 function delete_pasien()
